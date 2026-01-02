@@ -105,7 +105,11 @@ export default function RotatePdf({
 
     try {
       const count = parsePageRanges(pageRanges, totalPages).length;
-      setPageRangePreview(t('rotatePdf.pagesWillBeRotated', { count }));
+      setPageRangePreview(
+        count === 1
+          ? t('rotatePdf.pagesWillBeRotated_one', { count })
+          : t('rotatePdf.pagesWillBeRotated_other', { count })
+      );
     } catch (error) {
       setPageRangePreview('');
     }
@@ -191,7 +195,11 @@ export default function RotatePdf({
                 <Box sx={{ mt: 2 }}>
                   {totalPages > 0 && (
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                      {t('rotatePdf.pdfPageCount', { count: totalPages })}
+                      {totalPages === 1
+                        ? t('rotatePdf.pdfPageCount_one', { count: totalPages })
+                        : t('rotatePdf.pdfPageCount_other', {
+                            count: totalPages
+                          })}
                     </Typography>
                   )}
                   <TextFieldWithDesc
